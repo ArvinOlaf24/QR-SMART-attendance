@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Class Details - TrackAS{% endblock %}
+{% block content %}
+<div class="flex flex-col max-w-7xl mx-auto">
+  <div class="flex ml-auto pt-8 pr-8">
+    <form method="post" action="{{ url_for('auth.logout') }}">
+      <button
+        type="submit"
+        class="bg-red-500 hover:bg-blue-800 text-white px-2 py-1 rounded-full text-sm"
+      >
+        Log Out
+      </button>
+    </form>
+  </div>
+  <div class="flex flex-col gap-y-10 justify-center h-[80vh] items-center">
+    <div>
+      <div class="items-center flex self-center justify-center">
+        <img src="{{ url_for('static', filename='images/trackAS.png') }}" alt="logo" />
+      </div>
+      <h2 class="lg:text-4xl text-neutral-800 md:text-2xl text-xl font-bold mt-2 text-center">
+        Welcome, {{ lecturer.fullName if lecturer else 'Lecturer' }}
+      </h2>
+    </div>
+    <div class="flex gap-x-4">
+      <a
+        class="btn capitalize text-black hover:text-white text-lg bg-transparent"
+        href="{{ url_for('classes.previous_class') }}"
+      >
+        previous class
+      </a>
+      <a
+        class="btn capitalize text-white text-lg bg-[#000D46]"
+        href="{{ url_for('classes.class_schedule') }}"
+      >
+        create class
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

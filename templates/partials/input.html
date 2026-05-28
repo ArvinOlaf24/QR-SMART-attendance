@@ -1,0 +1,17 @@
+{% macro render_input(label, name, type='text', value='', placeholder='', required=false, readonly=false) %}
+<div class="form-control">
+  <label for="{{ name }}" class="label">
+    <span class="label-text font-bold text-sm text-[#1E1E1E]">{{ label }}</span>
+  </label>
+  <input
+    name="{{ name }}"
+    id="{{ name }}"
+    type="{{ type }}"
+    value="{{ value }}"
+    placeholder="{{ placeholder }}"
+    {% if required %}required{% endif %}
+    {% if readonly %}readonly{% endif %}
+    class="input bg-white w-full text-black border-black border focus:border-black rounded-md pr-12"
+  />
+</div>
+{% endmacro %}

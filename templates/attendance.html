@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% from "partials/input.html" import render_input %}
+{% block title %}Mark Attendance - TrackAS{% endblock %}
+{% block content %}
+<section class="student-login h-screen grid place-items-center">
+  <div class="bg-white px-6 py-4 md:px-16 max-w-3xl rounded-xl">
+    <div class="items-center flex self-center justify-center">
+      <img src="{{ url_for('static', filename='images/trackAS.png') }}" alt="logo" />
+    </div>
+    <h2 class="text-[2.5rem] text-[#000D46] text-center font-bold mb-2">TrackAS</h2>
+
+    {% if class_details %}
+    <div>
+      <p class="text-[#000D46] font-bold">Title: {{ class_details.course_title }}</p>
+      <p class="text-[#000D46] font-bold">Code: {{ course_code }}</p>
+      <p class="text-[#000D46] font-bold">Venue: {{ class_details.location_name }}</p>
+      <p class="text-[#000D46] font-bold">Date: {{ class_details.date[:10] if class_details.date else '' }}</p>
+      <p class="text-[#000D46] font-bold">Time: {{ class_details.time }}</p>
+      <p class="text-[#000D46] mb-2 text-lg font-bold">Note: {{ class_details.note or '—' }}</p>
+      <p class="text-[#000D46]">
+        Distance to Lecture Venue:
+        <span id="distance-display">Calculating...</span>
+      </p>
+    </div>
+    {% endif %}
+
+    <form id="attendance-form" method="post" action="{{ url_for('attendance.attendance') }}">
+      <input type="hidden" name="course_id" value="{{ course_id }}" />
+      <input type="hidden" name="course_code" value="{{ course_code }}" />
+      <input type="hidden" name="lat" value="{{ lat }}" />
+      <input type="hidden" name="lng" value="{{ lng }}" />
+      <input type="hidden" name="user_lat" id="user_lat" />
+      <input type="hidden" name="user_lng" id="user_lng" />
+
+      {{ render_input('Name', 'name', placeholder='Enter your name') }}
+      {{ render_input('Matriculation Number', 'matric_number', placeholder='Your matriculation number') }}
+
+      <button id="submit-btn" class="btn my-5 btn-block text-lg hidden" type="submit">
+        Mark Attendance
+      </button>
+    </form>
+
+    <p id="range-warning" class="text-xs text-red-500 pt-2">
+      You must be within 20 meters of the lecture venue to register.
+    </p>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/attendance.js') }}"></script>
+<script>
+  initAttendancePage({ lat: {{ lat|tojson }}, lng: {{ lng|tojson }} });
+</script>
+{% endblock %}

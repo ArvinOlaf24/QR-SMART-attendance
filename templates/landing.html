@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="h-screen w-full grid place-items-center px-6">
+  <div>
+    <div class="items-center flex self-center justify-center">
+      <img src="{{ url_for('static', filename='images/trackAS.png') }}" alt="logo" />
+    </div>
+    <h1 class="text-center text-2xl font-bold text-black">Welcome to TrackAS</h1>
+    <h2 class="text-center text-lg text-black">Register or Login</h2>
+    <div class="flex gap-x-4 mt-4 justify-center">
+      <a href="{{ url_for('auth.register') }}">
+        <button class="btn btn-primary">Register</button>
+      </a>
+      <a href="{{ url_for('auth.login') }}">
+        <button class="btn btn-secondary">Login</button>
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

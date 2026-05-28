@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% from "partials/input.html" import render_input %}
+{% block title %}Register - TrackAS{% endblock %}
+{% block content %}
+<section class="min-h-screen">
+  <div class="grid md:grid-cols-2">
+    <form
+      method="post"
+      action="{{ url_for('auth.register') }}"
+      class="px-6 lg:px-[133px] overflow-scroll h-screen"
+    >
+      <div class="flex flex-col items-center">
+        <img
+          src="{{ url_for('static', filename='images/trackAS.png') }}"
+          alt="logo"
+          class="w-32 mt-8"
+        />
+        <h2 class="text-[#000D46] font-bold text-2xl mt-1 mb-2">Create Account</h2>
+      </div>
+      <div class="grid gap-y-4">
+        {{ render_input('Full Name', 'full_name', required=true, placeholder='Enter your name') }}
+        {{ render_input('Email', 'email', 'email', required=true, placeholder='Enter your email') }}
+        {{ render_input('Password', 'password', 'password', required=true, placeholder='Enter your password') }}
+        {{ render_input('Confirm Password', 'confirm_password', 'password', required=true, placeholder='Confirm your password') }}
+        {{ render_input('Phone Number', 'phone_number', 'tel', required=true, placeholder='Enter your phone number') }}
+      </div>
+      <button
+        type="submit"
+        class="btn bg-[#000D46] font-bold text-base text-white btn-block mt-4"
+      >
+        Create Account
+      </button>
+      <p class="my-4 text-[#1E1E1E] text-center">
+        Already have an account?
+        <a class="text-[#000D46] font-semibold" href="{{ url_for('auth.login') }}">Login</a>
+      </p>
+    </form>
+    <div class="hidden md:block">
+      <img
+        src="{{ url_for('static', filename='images/registerImg.jpg') }}"
+        alt="register hero image"
+        class="h-screen w-full object-cover"
+      />
+    </div>
+  </div>
+  {% include "partials/footer.html" %}
+</section>
+{% endblock %}

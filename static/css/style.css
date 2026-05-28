@@ -1,0 +1,22 @@
+body {
+  background-color: white;
+  min-height: 100vh;
+}
+
+.student-login {
+  background-image: url("/static/images/studentBG.jpg");
+  background-size: cover;
+}
+
+.success-page {
+  background-color: #dcfce7;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+#map {
+  min-height: 60vh;
+}

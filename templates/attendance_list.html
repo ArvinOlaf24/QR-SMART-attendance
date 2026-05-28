@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Attendance List - TrackAS{% endblock %}
+{% block content %}
+<section class="max-w-3xl mx-auto px-6 py-10">
+  <div class="flex justify-between items-center mb-6">
+    <a href="{{ url_for('classes.previous_class') }}" class="btn btn-sm bg-blue-500 text-white">
+      Back
+    </a>
+    <div class="flex gap-2">
+      <a
+        href="{{ url_for('classes.export_csv', course_id=class_item.course_id) }}"
+        class="btn btn-xs font-bold text-white bg-blue-500 border-none"
+      >
+        Export CSV
+      </a>
+      <a
+        href="{{ url_for('classes.export_excel', course_id=class_item.course_id) }}"
+        class="btn btn-xs font-bold text-white bg-green-500 border-none"
+      >
+        Export Excel
+      </a>
+    </div>
+  </div>
+
+  <h2 class="text-xl font-bold underline mb-4 text-black">Attendance List</h2>
+  <p class="text-sm text-neutral-600 mb-4">
+    {{ class_item.course_code }} — {{ class_item.course_title }}
+  </p>
+
+  <div class="bg-white rounded-lg shadow p-4 max-h-[70vh] overflow-y-auto">
+    {% if class_item.attendees %}
+      {% for attendee in class_item.attendees %}
+      <div class="mb-4 border-b pb-2">
+        <p class="text-black uppercase text-sm font-semibold">Name: {{ attendee.name }}</p>
+        <p class="text-black uppercase text-sm font-semibold">
+          Matric No: {{ attendee.matric_no }}
+        </p>
+        <p class="text-gray-800 text-sm">Attended At: {{ attendee.timestamp }}</p>
+      </div>
+      {% endfor %}
+    {% else %}
+      <p>No attendees found for this class.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
